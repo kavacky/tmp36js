@@ -17,7 +17,11 @@
 		"temperature",
 		"wiringpi",
 		"wiring pi",
-		"gpio"
+		"gpio",
+		"quick2wire",
+		"q2w",
+		"analog board",
+		"analog"
 	],
 	"author": "Viesturs Kavacs <kavackys@gmail.com> (http://kavacky.lv/)",
 	"dependencies":
