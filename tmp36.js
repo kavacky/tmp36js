@@ -10,8 +10,8 @@ module.exports = function(settings) {
 	this.raw = null;
 
 	this.settings = {
-		address: 120,
-		base: 48,
+		base: 120,
+		address: 48,
 		pin: 0,
 		voltage: 3.3,
 		interval: 300,
@@ -25,9 +25,9 @@ module.exports = function(settings) {
 		function() {
 			exec(
 				'gpio -x pcf8591:'
-				+ callback_this.settings.address
-				+ ':0x' + callback_this.settings.base
-				+ ' aread ' + (callback_this.settings.address + callback_this.settings.pin),
+				+ callback_this.settings.base
+				+ ':0x' + callback_this.settings.address
+				+ ' aread ' + (callback_this.settings.base + callback_this.settings.pin),
 				function(err, stdout, stderr) {
 					callback_this.raw = parseInt(stdout, 10);
 				}
