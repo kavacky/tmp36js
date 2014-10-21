@@ -1,0 +1,27 @@
+{
+	"name": "tmp36",
+	"version": "1.0.0",
+	"description": "Temperature reading from TMP36 sensor via PCF8591 analog/digital converter using WiringPi GPIO command line utility.",
+	"main": "tmp36.js",
+	"repository":
+	{
+		"type": "git",
+		"url": "git://github.com/kavacky/tmp36js.git"
+	},
+	"keywords":
+	[
+		"tmp36",
+		"raspberry",
+		"raspberry pi",
+		"rpi",
+		"temperature",
+		"wiringpi"
+		"wiring pi",
+		"gpio"
+	],
+	"author": "Viesturs Kavacs <kavackys@gmail.com> (http://kavacky.lv/)",
+	"dependencies":
+	{
+		"merge": ">=1.2.0"
+	}
+}
