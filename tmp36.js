@@ -22,17 +22,27 @@ module.exports = function(settings) {
 	/**
 	 *
 	 */
+	this.read = function() {
+		exec(
+			'gpio -x pcf8591:'
+			+ callback_this.settings.base
+			+ ':0x' + callback_this.settings.address
+			+ ' aread ' + (callback_this.settings.base + callback_this.settings.pin),
+			function(err, stdout, stderr) {
+				callback_this.add(parseInt(stdout, 10));
+			}
+		);
+	};
+
+	// Instant availability
+	this.read();
+
+	/**
+	 *
+	 */
 	this.interval = setInterval(
 		function() {
-			exec(
-				'gpio -x pcf8591:'
-				+ callback_this.settings.base
-				+ ':0x' + callback_this.settings.address
-				+ ' aread ' + (callback_this.settings.base + callback_this.settings.pin),
-				function(err, stdout, stderr) {
-					callback_this.reading(parseInt(stdout, 10));
-				}
-			);
+			callback_this.read();
 		},
 		this.settings.interval
 	);
@@ -54,7 +64,7 @@ module.exports = function(settings) {
 	/**
 	 *
 	 */
-	this.reading = function(v) {
+	this.add = function(v) {
 		this.raw.push(v);
 		if (this.raw.length > this.settings.samples) {
 			this.raw.shift();
