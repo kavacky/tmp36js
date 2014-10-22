@@ -7,7 +7,7 @@ var merge = require('merge');
 module.exports = function(settings) {
 	var callback_this = this;
 
-	this.raw = null;
+	this.raw = [];
 
 	this.settings = {
 		base: 120,
@@ -15,6 +15,7 @@ module.exports = function(settings) {
 		pin: 0,
 		voltage: 3.3,
 		interval: 300,
+		samples: 20,
 	};
 	this.settings = merge(this.settings, settings);
 
@@ -29,7 +30,7 @@ module.exports = function(settings) {
 				+ ':0x' + callback_this.settings.address
 				+ ' aread ' + (callback_this.settings.base + callback_this.settings.pin),
 				function(err, stdout, stderr) {
-					callback_this.raw = parseInt(stdout, 10);
+					callback_this.reading(parseInt(stdout, 10));
 				}
 			);
 		},
@@ -40,13 +41,34 @@ module.exports = function(settings) {
 	 *
 	 */
 	this.temperature = function() {
-		return (this.raw / 255 * this.settings.voltage * 1000 - 500) / 10;
-	}
+		return (this.val() / 255 * this.settings.voltage * 1000 - 500) / 10;
+	};
 	
 	/**
 	 *
 	 */
 	this.kelvins = function() {
 		return this.temperature() + 273.15;
-	}
+	};
+
+	/**
+	 *
+	 */
+	this.reading = function(v) {
+		this.raw.push(v);
+		if (this.raw.length > this.settings.samples) {
+			this.raw.shift();
+		}
+	};
+
+	/**
+	 *
+	 */
+	this.val = function() {
+		var sum = 0;
+		this.raw.forEach(function(v) {
+			sum += v;
+		});
+		return sum / this.raw.length
+	};
 }

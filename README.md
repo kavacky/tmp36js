@@ -20,10 +20,11 @@ Defaults
 --------
 ```javascript
 {  
-	address: 120,  
-	base: 48,  
-	pin: 0,  
-	voltage: 3.3,  
-	interval: 300,  
+	address: 120,
+	base: 48,
+	pin: 0,
+	voltage: 3.3,
+	interval: 300,
+	samples: 20,
 }
 ```
